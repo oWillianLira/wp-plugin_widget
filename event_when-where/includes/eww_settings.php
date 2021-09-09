@@ -22,6 +22,7 @@ function eww_panel()
     <h1>Event, when and where</h1>
     <form action="options.php" method="post">
       <?php
+      settings_errors();
       do_settings_sections('event_when-where');
       settings_fields('eww_settings');
       submit_button();
@@ -52,7 +53,8 @@ function eww_sections()
 
   register_setting(
     'eww_settings',
-    'eww_field_address'
+    'eww_address',
+    'check_address'
   );
 
   add_settings_field(
@@ -65,7 +67,8 @@ function eww_sections()
 
   register_setting(
     'eww_settings',
-    'eww_city'
+    'eww_city',
+    'check_city'
   );
 
   add_settings_field(
@@ -78,7 +81,8 @@ function eww_sections()
 
   register_setting(
     'eww_settings',
-    'eww_date'
+    'eww_date',
+    'check_date'
   );
 };
 
@@ -92,20 +96,63 @@ function eww_section_details()
 function eww_field_address()
 {
 ?>
-  <input type="text" name="eww_address" id="eww_address" required>
+  <input type="text" name="eww_address" id="eww_address" value="<?= esc_attr(get_option('eww_address')); ?>" required>
 <?php
 }
 
 function eww_field_city()
 {
 ?>
-  <input type="text" name="eww_city" id="eww_city" required>
+  <input type="text" name="eww_city" id="eww_city" value="<?= esc_attr(get_option('eww_city')); ?>" required>
 <?php
 }
 
 function eww_field_date()
 {
 ?>
-  <input type="date" name="eww_date" id="eww_date" required>
+  <input type="date" name="eww_date" id="eww_date" value="<?= esc_attr(get_option('eww_date')); ?>" required>
 <?php
 }
+
+// Callback function to validate input fields
+function check_address($address)
+{
+  if (empty($address)) {
+    $address = get_option('eww_address');
+    add_settings_error(
+      'eww_error_message',
+      'eww_error_message_address',
+      'Please, enter a valid address',
+      'error'
+    );
+  };
+  return $address;
+};
+
+function check_city($city)
+{
+  if (empty($city)) {
+    $city = get_option('eww_city');
+    add_settings_error(
+      'eww_error_message',
+      'eww_error_message_city',
+      'Please, enter a valid city',
+      'error'
+    );
+  };
+  return $city;
+};
+
+function check_date($date)
+{
+  if (empty($date)) {
+    $date = get_option('eww_date');
+    add_settings_error(
+      'eww_error_message',
+      'eww_error_message_date',
+      'Please, enter a valid date',
+      'error'
+    );
+  };
+  return $date;
+};
