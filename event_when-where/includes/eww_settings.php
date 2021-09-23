@@ -1,5 +1,15 @@
 <?php
 
+add_action('wp_enqueue_scripts', 'eww_add_script');
+function eww_add_script()
+{
+  wp_enqueue_style(
+    'eww_style',
+    plugins_url() . '/event_when-where/css/styles.css'
+  );
+}
+
+
 add_action('admin_menu', 'eww_menu');
 
 function eww_menu()
