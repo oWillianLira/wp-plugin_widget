@@ -1,24 +1,3 @@
-<style>
-  .main_sponsors {
-    margin: 20px;
-  }
-
-  h3.sponsors_title {
-    font-size: 20px;
-    font-weight: 500;
-    margin-bottom: 20px;
-  }
-
-  .sponsors_list li:not(:last-child) {
-    margin-bottom: 20px;
-  }
-
-  .sponsors_list li img {
-    width: 150px;
-    height: auto;
-  }
-</style>
-
 <?php
 
 /**
@@ -34,3 +13,4 @@ if (!defined('ABSPATH')) {
 }
 
 require_once plugin_dir_path(__FILE__) . '/includes/es_widget.php';
+require_once plugin_dir_path(__FILE__) . '/includes/es_settings.php';
